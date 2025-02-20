@@ -23,6 +23,22 @@
             ". "
         </p>
         <p>If you have any questions, feel free to <a href="">email me</a>.</p>
+        <hr>
+        <section id="all-books">
+                <% books.forEach(book => { %>
+                    <div class="a-book">
+                        <figure>
+                            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %> by <%= book.author %>">
+                        </figure>
+                        <h2><%= book.title %> by <%= book.author %></h2>
+                        <small>Date Read: <%= new Date(book.date_read).toLocaleDateString("en-US", { year: "numeric", month: "numeric", day: "numeric" }) %>. My Rating: <%= book.rating %>/10</small>
+                        <p><%= book.notes %></p>
+                        <a href="/book/<%= book.id %>">Read more</a>
+                    </div>
+                <% }) %>
+        
+
+        </section>
     </main>
 </body>
 </html>
