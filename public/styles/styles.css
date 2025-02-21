@@ -1,0 +1,53 @@
+
+
+#main-header{
+    font-size: 3em;
+    line-height: 1em;
+
+}
+
+body{
+    font-size: 20px;
+    background-color: #eadbcb;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    max-width: 40em;
+    line-height: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+main{
+    display: block;
+
+}
+div{
+    display: block;
+    margin: 0 0 8em 0;
+}
+
+figure{
+    display: block;
+    margin: 0;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+a:visited{
+    color: inherit;
+}
+
+a.no-style{
+    text-decoration: underline;
+    color: blue;
+}
