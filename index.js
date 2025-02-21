@@ -19,18 +19,69 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-// Basic Route
 app.get("/", async (req, res) => {
     try {
-        const result = await db.query("SELECT title, author, date_read, rating, notes, isbn FROM books");
-        console.log(result.rows); // Log the books table to the console (for debugging)
-        
-        res.render("index.ejs", { books: result.rows }); // Send data to EJS template
-      } catch (error) {
+        let sortQuery = "ORDER BY rating DESC"; // Default: Top-rated first
+        const { sort } = req.query; // Get sort parameter from URL
+
+        if (sort === "title") {
+            sortQuery = "ORDER BY title ASC"; // Sort A-Z by title
+        } else if (sort === "date") {
+            sortQuery = "ORDER BY date_read DESC"; // Newest first
+        } else if (sort === "rating") {
+            sortQuery = "ORDER BY rating DESC"; // Highest-rated first
+        }
+
+        const result = await db.query(`SELECT * FROM books ${sortQuery}`);
+        res.render("index.ejs", { books: result.rows });
+
+    } catch (error) {
         console.error("Error fetching books:", error);
         res.status(500).send("Database error");
-      }
+    }
 });
+
+
+//Route to sort books
+/*app.get("/books", async (req, res) => {
+    try {
+      let sortQuery = "ORDER BY rating DESC"; // Default sorting (Top Recommendations)
+  
+      // Get the sort parameter from the query string
+      const { sort } = req.query;
+  
+      if (sort === "title") {
+        sortQuery = "ORDER BY title ASC"; // Sort by title (A-Z)
+      } else if (sort === "date") {
+        sortQuery = "ORDER BY date_read DESC"; // Newest books first
+      } else if (sort === "rating") {
+        sortQuery = "ORDER BY rating DESC"; // Highest-rated books first
+      }
+  
+      // Query the database with the dynamic sorting
+      const result = await db.query(`SELECT * FROM books ${sortQuery}`);
+      
+      res.render("books.ejs", { books: result.rows });
+    } catch (error) {
+      console.error("Error fetching books:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+*/
+  app.get("/books/:id", async (req, res) => {
+    const bookId = req.params.id;
+    try {
+        const result = await db.query("SELECT * FROM books WHERE id = $1", [bookId]);
+        if (result.rows.length === 0) {
+            return res.status(404).send("Book not found");
+        }
+        res.render("book.ejs", { book: result.rows[0] });
+    } catch (error) {
+        console.error("Error fetching book:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+);
 
 
 // Start Server

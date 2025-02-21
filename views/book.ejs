@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+
+<main>
+    <article>
+        <div id="a-book">
+            <a href="/">Back to All Books</a>
+            <figure>
+                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %> cover">
+            </figure>
+            <h1><%= book.title %> by <%= book.author %></h1>
+            <p><strong>Date Read:</strong> 
+                <%= new Date(book.date_read).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) %>
+            </p> 
+            <p><strong>My Rating:</strong> <%= book.rating %>/10</p>  
+            <p><strong>Notes:</strong></p>
+            <p><%= book.notes %></p> 
+        </div>
+        <hr>
+        <a href="/">Back to All Books</a>
+    </article>
+</main>
+
+<%- include("partials/footer") %>

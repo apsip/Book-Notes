@@ -1,13 +1,5 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrew's Book Notes</title>
-</head>
-<body>
-    <header>
-        <a href="/" title="Andrew Sipovac">Andrew Sipovac</a>
-    </header>
+<%- include("partials/header") %>
+
     <main>
         <header>
             <h1>Book's I've Read</h1>
@@ -15,14 +7,13 @@
         </header>
 
         <p id="sorters">
-            Sorted with my top recommendations first. Sort by <a href="/book?sort=title" id="sort-title">title</a>
-            ", "
-            <a href="/book?sort=date" id="sort-date">newest</a>
-            ", "
-            <a href="/book?sort=rating" id="sort-rating">best</a>
-            ". "
+            Sorted with my top recommendations first. Sort by 
+            <a href="/?sort=title" id="sort-title">title,</a>
+            <a href="/?sort=date" id="sort-date">newest,</a>
+            <a href="/?sort=rating" id="sort-rating">best.</a>
+            
         </p>
-        <p>If you have any questions, feel free to <a href="">email me</a>.</p>
+        <p>If you have any questions, feel free to <a href="mailto:andrewsipovac@gmail.com">email me</a>.</p>
         <hr>
         <section id="all-books">
                 <% books.forEach(book => { %>
@@ -30,15 +21,16 @@
                         <figure>
                             <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %> by <%= book.author %>">
                         </figure>
-                        <h2><%= book.title %> by <%= book.author %></h2>
+                        <h2><a href="/books/<%= book.id %>"><%= book.title %> by <%= book.author %></a></h2>
                         <small>Date Read: <%= new Date(book.date_read).toLocaleDateString("en-US", { year: "numeric", month: "numeric", day: "numeric" }) %>. My Rating: <%= book.rating %>/10</small>
                         <p><%= book.notes %></p>
-                        <a href="/book/<%= book.id %>">Read more</a>
+                        <a href="/books/<%= book.id %>">Read more</a>
                     </div>
                 <% }) %>
         
 
         </section>
     </main>
-</body>
-</html>
+
+<%- include ("partials/footer") %>
+<!-- Compare this snippet from views/partials/footer.ejs: -->
