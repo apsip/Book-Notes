@@ -41,33 +41,6 @@ app.get("/", async (req, res) => {
     }
 });
 
-
-//Route to sort books
-/*app.get("/books", async (req, res) => {
-    try {
-      let sortQuery = "ORDER BY rating DESC"; // Default sorting (Top Recommendations)
-  
-      // Get the sort parameter from the query string
-      const { sort } = req.query;
-  
-      if (sort === "title") {
-        sortQuery = "ORDER BY title ASC"; // Sort by title (A-Z)
-      } else if (sort === "date") {
-        sortQuery = "ORDER BY date_read DESC"; // Newest books first
-      } else if (sort === "rating") {
-        sortQuery = "ORDER BY rating DESC"; // Highest-rated books first
-      }
-  
-      // Query the database with the dynamic sorting
-      const result = await db.query(`SELECT * FROM books ${sortQuery}`);
-      
-      res.render("books.ejs", { books: result.rows });
-    } catch (error) {
-      console.error("Error fetching books:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  });
-*/
   app.get("/books/:id", async (req, res) => {
     const bookId = req.params.id;
     try {

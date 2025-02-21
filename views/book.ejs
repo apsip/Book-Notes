@@ -12,8 +12,10 @@
                 <%= new Date(book.date_read).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) %>
             </p> 
             <p><strong>My Rating:</strong> <%= book.rating %>/10</p>  
-            <p><strong>Notes:</strong></p>
-            <p><%= book.notes %></p> 
+            <p><strong>Summary:</strong></p>
+            <p><%= book.summary %></p>
+            <p><strong>Notes:</strong></p> 
+            <p><%= book.notes %></p>
         </div>
         <hr>
         <a href="/">Back to All Books</a>
